@@ -1,2 +1,2 @@
 def output():
-    return 'hello_world'
+    return 'hello_world2'
