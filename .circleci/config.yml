@@ -53,7 +53,7 @@ commands:
         steps:
             - add_ssh_keys:
                 fingerprints:
-                    - 'b6:e6:64:dc:20:5a:ba:9c:cd:a1:67:62:46:6e:37:93'
+                    - ${FINGERPRINT}
             - run:
                 name: "deploy"
                 command: |
