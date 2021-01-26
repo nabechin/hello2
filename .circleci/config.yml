@@ -48,6 +48,18 @@ commands:
                 name: "run test"
                 command: pytest ~/hello/tests/
 
+    deploy:
+        description: "deploy"
+        steps:
+            - add_ssh_keys:
+                fingerprints:
+                    - 'b6:e6:64:dc:20:5a:ba:9c:cd:a1:67:62:46:6e:37:93'
+            - run:
+                name: "deploy"
+                command: |
+                    ssh -oStrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} 'cd ~/workspace/hello2 && sudo git pull origin master'
+                
+
 jobs:
     build_and_test:
         executor: code_test
@@ -58,9 +70,20 @@ jobs:
             - pip_install
             - save_package
             - execute_test
-    
+    deploy:
+        executor: code_test
+        steps:
+            - checkout
+            - deploy
+
 workflows:
     version: 2.1
     test:
         jobs:
             - build_and_test
+            - deploy:
+                requires:
+                    - build_and_test
+                filters:
+                    branches:
+                        only: master
