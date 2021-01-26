@@ -57,7 +57,7 @@ commands:
             - run:
                 name: "deploy"
                 command: |
-                    ssh -oStrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} 'cd ~/workspace/hello2 && sudo git pull origin master'
+                    ssh ${USER_NAME}@${HOST_NAME} 'cd ~/workspace/hello2 && sudo git pull origin master'
                 
 
 jobs:
